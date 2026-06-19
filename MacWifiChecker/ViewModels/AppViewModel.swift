@@ -124,10 +124,11 @@ final class AppViewModel {
         var result = TestResult(bssid: ap.bssid, ssid: ap.ssid)
         result.startedAt = Date()
         results[ap.bssid] = result
+        var associated = false   // track whether association succeeded
 
         defer {
             results[ap.bssid]?.finishedAt = Date()
-            wifiService.disassociate()
+            if associated { wifiService.disassociate() }  // only disassociate if we actually connected
         }
 
         // --- Association ---
@@ -137,6 +138,7 @@ final class AppViewModel {
         do {
             try await wifiService.associate(bssid: ap.bssid, psk: psk)
             result.assoc = .pass()
+            associated = true   // association succeeded; defer should disassociate
         } catch {
             result.assoc = .fail(detail: error.localizedDescription)
             result.v4Addr = .skip; result.v4GW  = .skip; result.v4Net = .skip

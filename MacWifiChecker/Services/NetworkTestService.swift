@@ -15,7 +15,7 @@ final class NetworkTestService {
     // MARK: - Shell Runner
 
     /// コマンドを実行して標準出力を返す。終了コード != 0 は ShellError.failed を throw。
-    func run(_ args: [String]) async throws -> String {
+    nonisolated func run(_ args: [String]) async throws -> String {
         let proc = Process()
         proc.executableURL = URL(fileURLWithPath: "/usr/bin/env")
         proc.arguments = args
@@ -57,7 +57,7 @@ final class NetworkTestService {
     }
 
     /// DHCP で IPv4 アドレスが取得されるまでポーリングする（最大 timeoutSeconds 秒）
-    func waitForIPv4(timeoutSeconds: Double = 15) async throws -> IPv4Info {
+    nonisolated func waitForIPv4(timeoutSeconds: Double = 15) async throws -> IPv4Info {
         let deadline = Date().addingTimeInterval(timeoutSeconds)
         while Date() < deadline {
             try Task.checkCancellation()
@@ -68,7 +68,7 @@ final class NetworkTestService {
     }
 
     /// RA/SLAAC で IPv6 グローバルアドレスが取得されるまでポーリングする（最大 timeoutSeconds 秒）
-    func waitForIPv6(timeoutSeconds: Double = 20) async throws -> IPv6Info {
+    nonisolated func waitForIPv6(timeoutSeconds: Double = 20) async throws -> IPv6Info {
         let deadline = Date().addingTimeInterval(timeoutSeconds)
         while Date() < deadline {
             try Task.checkCancellation()
@@ -122,13 +122,13 @@ final class NetworkTestService {
     // MARK: - 11 テスト項目
 
     /// テスト 1: Association（WiFiService.associate で完了済み）→ TestResult に記録するだけ
-    func testAssoc(result: inout TestResult, expectedBSSID: String) {
+    nonisolated func testAssoc(result: inout TestResult, expectedBSSID: String) {
         // association 成功は呼び出し側（AppViewModel）が保証済み
         result.assoc = .pass()
     }
 
     /// テスト 2: IPv4 DHCP アドレス取得
-    func testV4Addr(result: inout TestResult) async throws -> IPv4Info {
+    nonisolated func testV4Addr(result: inout TestResult) async throws -> IPv4Info {
         let info = try await waitForIPv4()
         result.v4Addr = .pass(detail: info.address)
         result.ipv4Address   = info.address
@@ -138,7 +138,7 @@ final class NetworkTestService {
     }
 
     /// テスト 3: IPv4 デフォルトゲートウェイへの ping
-    func testV4GW(result: inout TestResult, gateway: String) async {
+    nonisolated func testV4GW(result: inout TestResult, gateway: String) async {
         do {
             _ = try await run(["ping", "-c1", "-W3000", gateway])
             result.v4GW = .pass()
@@ -148,7 +148,7 @@ final class NetworkTestService {
     }
 
     /// テスト 4: IPv4 インターネット疎通
-    func testV4Net(result: inout TestResult, target: String) async {
+    nonisolated func testV4Net(result: inout TestResult, target: String) async {
         do {
             _ = try await run(["ping", "-c1", "-W5000", target])
             result.v4Net = .pass()
@@ -158,7 +158,7 @@ final class NetworkTestService {
     }
 
     /// テスト 5: IPv4 MTU（DF ビットを立てて二分探索）
-    func testV4MTU(result: inout TestResult, gateway: String) async {
+    nonisolated func testV4MTU(result: inout TestResult, gateway: String) async {
         let mtu = await binarySearchMTU(target: gateway, lo: 100, hi: 1472, family: .v4)
         if mtu > 0 {
             result.v4MTU = .pass(detail: "\(mtu + 28)")  // IP(20) + ICMP(8) + payload = MTU
@@ -168,7 +168,7 @@ final class NetworkTestService {
     }
 
     /// テスト 6: IPv4 DNS 解決
-    func testV4DNS(result: inout TestResult, server: String, target: String) async {
+    nonisolated func testV4DNS(result: inout TestResult, server: String, target: String) async {
         guard !server.isEmpty else {
             result.v4DNS = .fail(detail: "DNSサーバーが取得できませんでした")
             return
@@ -182,7 +182,7 @@ final class NetworkTestService {
     }
 
     /// テスト 7: IPv6 アドレス取得（RA/SLAAC）
-    func testV6Addr(result: inout TestResult) async throws -> IPv6Info {
+    nonisolated func testV6Addr(result: inout TestResult) async throws -> IPv6Info {
         let info = try await waitForIPv6()
         result.v6Addr = .pass(detail: info.address)
         result.ipv6Address    = info.address
@@ -192,7 +192,7 @@ final class NetworkTestService {
     }
 
     /// テスト 8: IPv6 ゲートウェイへの ping6
-    func testV6GW(result: inout TestResult, gateway: String) async {
+    nonisolated func testV6GW(result: inout TestResult, gateway: String) async {
         do {
             _ = try await run(["ping6", "-c1", gateway])
             result.v6GW = .pass()
@@ -202,7 +202,7 @@ final class NetworkTestService {
     }
 
     /// テスト 9: IPv6 インターネット疎通
-    func testV6Net(result: inout TestResult, target: String) async {
+    nonisolated func testV6Net(result: inout TestResult, target: String) async {
         do {
             _ = try await run(["ping6", "-c1", target])
             result.v6Net = .pass()
@@ -212,7 +212,7 @@ final class NetworkTestService {
     }
 
     /// テスト 10: IPv6 MTU（二分探索）
-    func testV6MTU(result: inout TestResult, gateway: String) async {
+    nonisolated func testV6MTU(result: inout TestResult, gateway: String) async {
         let payload = await binarySearchMTU(target: gateway, lo: 1232, hi: 1452, family: .v6)
         if payload > 0 {
             result.v6MTU = .pass(detail: "\(payload + 48)")  // IPv6(40) + ICMPv6(8) + payload
@@ -222,7 +222,7 @@ final class NetworkTestService {
     }
 
     /// テスト 11: IPv6 DNS 解決
-    func testV6DNS(result: inout TestResult, server: String, target: String) async {
+    nonisolated func testV6DNS(result: inout TestResult, server: String, target: String) async {
         guard !server.isEmpty else {
             result.v6DNS = .fail(detail: "DNSサーバーが取得できませんでした")
             return
