@@ -5,12 +5,12 @@ final class ConfigServiceTests: XCTestCase {
     var sut: ConfigService!
     var tempDir: URL!
 
-    override func setUp() {
-        super.setUp()
+    override func setUpWithError() throws {
+        try super.setUpWithError()
         sut = ConfigService()
         tempDir = FileManager.default.temporaryDirectory
             .appendingPathComponent(UUID().uuidString)
-        try! FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
     }
 
     override func tearDown() {
@@ -60,9 +60,9 @@ final class ConfigServiceTests: XCTestCase {
         XCTAssertEqual(config.ssidPskOverrides, [:])
     }
 
-    func test_load_invalidJSON_throws() {
+    func test_load_invalidJSON_throws() throws {
         let url = tempDir.appendingPathComponent("bad.json")
-        try! "not json".data(using: .utf8)!.write(to: url)
+        try "not json".data(using: .utf8)!.write(to: url)
         XCTAssertThrowsError(try sut.load(from: url))
     }
 
