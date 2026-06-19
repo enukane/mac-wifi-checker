@@ -16,14 +16,15 @@ final class NetworkTestService {
 
     /// コマンドを実行して標準出力を返す。終了コード != 0 は ShellError.failed を throw。
     func run(_ args: [String]) async throws -> String {
+        let proc = Process()
+        proc.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        proc.arguments = args
+        let outPipe = Pipe(), errPipe = Pipe()
+        proc.standardOutput = outPipe
+        proc.standardError  = errPipe
+
         return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { cont in
-                let proc = Process()
-                proc.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-                proc.arguments = args
-                let outPipe = Pipe(), errPipe = Pipe()
-                proc.standardOutput = outPipe
-                proc.standardError  = errPipe
                 proc.terminationHandler = { p in
                     let out = String(data: outPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
                     let err = String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
@@ -36,7 +37,9 @@ final class NetworkTestService {
                 }
                 do { try proc.run() } catch { cont.resume(throwing: error) }
             }
-        } onCancel: { }
+        } onCancel: {
+            proc.terminate()
+        }
     }
 
     // MARK: - DHCP / RA ポーリング
@@ -101,7 +104,12 @@ final class NetworkTestService {
         let routeOutput = (try? await run(["route", "-n", "get", "-inet6", "default"])) ?? ""
         let gw = routeOutput.components(separatedBy: "\n")
             .first { $0.contains("gateway:") }
-            .flatMap { $0.components(separatedBy: ":").last?.trimmingCharacters(in: .whitespaces) }
+            .map {
+                $0.components(separatedBy: ":")
+                  .dropFirst()
+                  .joined(separator: ":")
+                  .trimmingCharacters(in: .whitespaces)
+            }
             ?? ""
 
         // DNS（scutil --dns からインターフェース固有のサーバーを取得）
@@ -161,6 +169,10 @@ final class NetworkTestService {
 
     /// テスト 6: IPv4 DNS 解決
     func testV4DNS(result: inout TestResult, server: String, target: String) async {
+        guard !server.isEmpty else {
+            result.v4DNS = .fail(detail: "DNSサーバーが取得できませんでした")
+            return
+        }
         do {
             _ = try await run(["dig", "@\(server)", target, "A", "+time=5", "+tries=1"])
             result.v4DNS = .pass()
@@ -211,6 +223,10 @@ final class NetworkTestService {
 
     /// テスト 11: IPv6 DNS 解決
     func testV6DNS(result: inout TestResult, server: String, target: String) async {
+        guard !server.isEmpty else {
+            result.v6DNS = .fail(detail: "DNSサーバーが取得できませんでした")
+            return
+        }
         do {
             _ = try await run(["dig", "@\(server)", target, "AAAA", "+time=5", "+tries=1"])
             result.v6DNS = .pass()
@@ -240,7 +256,7 @@ final class NetworkTestService {
             case .v4:
                 _ = try await run(["ping", "-c1", "-W2000", "-D", "-s\(payloadSize)", target])
             case .v6:
-                _ = try await run(["ping6", "-c1", "-s\(payloadSize)", target])
+                _ = try await run(["ping6", "-c1", "-m", "-s\(payloadSize)", target])
             }
             return true
         } catch { return false }
