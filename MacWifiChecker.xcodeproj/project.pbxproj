@@ -1,0 +1,418 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		248ABC587709D05C4DCC6AD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5491D52F120BE34DA256107E /* Assets.xcassets */; };
+		ED89B3E17DEB8E77AFE901A5 /* MacWifiCheckerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC3AE72F1974BFA087E8875 /* MacWifiCheckerApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B08B4C6B17ADF583F79A8192 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 36AB5C802C038C27920A6E0E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D645E8E89DFCB849B4AF037F;
+			remoteInfo = MacWifiChecker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		275E393B674FAB78301F023C /* MacWifiChecker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacWifiChecker.entitlements; sourceTree = "<group>"; };
+		5491D52F120BE34DA256107E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		73905C623572F1E7AF9EBF20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7BC3AE72F1974BFA087E8875 /* MacWifiCheckerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacWifiCheckerApp.swift; sourceTree = "<group>"; };
+		B4906A18362FDA9167374C14 /* MacWifiCheckerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacWifiCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3583FF9C62C26014B39E3AF /* MacWifiChecker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacWifiChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7F54107E3DCF8E795E0E499 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		4AA96357D6C3ACE4F1E6BAD6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7BC3AE72F1974BFA087E8875 /* MacWifiCheckerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		99BBFA0E5E07ED9D5AF338CD = {
+			isa = PBXGroup;
+			children = (
+				B996D84A32662C42FAD548AE /* MacWifiChecker */,
+				C3E796261E05012D26380A06 /* MacWifiCheckerTests */,
+				9BBEF1B3E81D5AAA859BE850 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9BBEF1B3E81D5AAA859BE850 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3583FF9C62C26014B39E3AF /* MacWifiChecker.app */,
+				B4906A18362FDA9167374C14 /* MacWifiCheckerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B996D84A32662C42FAD548AE /* MacWifiChecker */ = {
+			isa = PBXGroup;
+			children = (
+				5491D52F120BE34DA256107E /* Assets.xcassets */,
+				73905C623572F1E7AF9EBF20 /* Info.plist */,
+				275E393B674FAB78301F023C /* MacWifiChecker.entitlements */,
+				4AA96357D6C3ACE4F1E6BAD6 /* App */,
+			);
+			path = MacWifiChecker;
+			sourceTree = "<group>";
+		};
+		C3E796261E05012D26380A06 /* MacWifiCheckerTests */ = {
+			isa = PBXGroup;
+			children = (
+				F7F54107E3DCF8E795E0E499 /* .gitkeep */,
+			);
+			path = MacWifiCheckerTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CAC3A56834553C9763639FC2 /* MacWifiCheckerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0352FBCA375E979EDB1DEF9 /* Build configuration list for PBXNativeTarget "MacWifiCheckerTests" */;
+			buildPhases = (
+				40E313B919AB4589FC658583 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E16D0C37259FA57B3DF7EB18 /* PBXTargetDependency */,
+			);
+			name = MacWifiCheckerTests;
+			packageProductDependencies = (
+			);
+			productName = MacWifiCheckerTests;
+			productReference = B4906A18362FDA9167374C14 /* MacWifiCheckerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D645E8E89DFCB849B4AF037F /* MacWifiChecker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12CC75CC2CCC2D64183CD52E /* Build configuration list for PBXNativeTarget "MacWifiChecker" */;
+			buildPhases = (
+				CE744C08D67D2BA23ADED20B /* Sources */,
+				8622CCD48DB94DC759DA3F0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacWifiChecker;
+			packageProductDependencies = (
+			);
+			productName = MacWifiChecker;
+			productReference = D3583FF9C62C26014B39E3AF /* MacWifiChecker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		36AB5C802C038C27920A6E0E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 096F016BB84CB4F169B79E56 /* Build configuration list for PBXProject "MacWifiChecker" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 99BBFA0E5E07ED9D5AF338CD;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9BBEF1B3E81D5AAA859BE850 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D645E8E89DFCB849B4AF037F /* MacWifiChecker */,
+				CAC3A56834553C9763639FC2 /* MacWifiCheckerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8622CCD48DB94DC759DA3F0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				248ABC587709D05C4DCC6AD0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		40E313B919AB4589FC658583 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE744C08D67D2BA23ADED20B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED89B3E17DEB8E77AFE901A5 /* MacWifiCheckerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E16D0C37259FA57B3DF7EB18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D645E8E89DFCB849B4AF037F /* MacWifiChecker */;
+			targetProxy = B08B4C6B17ADF583F79A8192 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		104B6C2123BBDFBA4326C740 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_ENTITLEMENTS = MacWifiChecker/MacWifiChecker.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = MacWifiChecker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.shownet.MacWifiChecker;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		2B0EA728762DBC2592F6EA2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		37FDC82A65EA8FE93A238B36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_ENTITLEMENTS = MacWifiChecker/MacWifiChecker.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = MacWifiChecker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.shownet.MacWifiChecker;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		457A7A35419D537EF65120FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.shownet.MacWifiCheckerTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacWifiChecker.app/Contents/MacOS/MacWifiChecker";
+			};
+			name = Release;
+		};
+		4BAE156694ACED99AFCF4B6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		5959540B6C36805B453AD9C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.shownet.MacWifiCheckerTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacWifiChecker.app/Contents/MacOS/MacWifiChecker";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		096F016BB84CB4F169B79E56 /* Build configuration list for PBXProject "MacWifiChecker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BAE156694ACED99AFCF4B6A /* Debug */,
+				2B0EA728762DBC2592F6EA2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		12CC75CC2CCC2D64183CD52E /* Build configuration list for PBXNativeTarget "MacWifiChecker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				104B6C2123BBDFBA4326C740 /* Debug */,
+				37FDC82A65EA8FE93A238B36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E0352FBCA375E979EDB1DEF9 /* Build configuration list for PBXNativeTarget "MacWifiCheckerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5959540B6C36805B453AD9C6 /* Debug */,
+				457A7A35419D537EF65120FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 36AB5C802C038C27920A6E0E /* Project object */;
+}

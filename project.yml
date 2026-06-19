@@ -1,0 +1,41 @@
+name: MacWifiChecker
+options:
+  bundleIdPrefix: net.shownet
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+targets:
+  MacWifiChecker:
+    type: application
+    platform: macOS
+    sources:
+      - path: MacWifiChecker
+        createIntermediateGroups: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: net.shownet.MacWifiChecker
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        SWIFT_VERSION: "5.9"
+        CODE_SIGN_ENTITLEMENTS: MacWifiChecker/MacWifiChecker.entitlements
+        ENABLE_HARDENED_RUNTIME: NO
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGNING_REQUIRED: NO
+        CODE_SIGNING_ALLOWED: NO
+    info:
+      path: MacWifiChecker/Info.plist
+      properties:
+        CFBundleName: "Mac Wi-Fi Checker"
+        CFBundleDisplayName: "Mac Wi-Fi Checker"
+        NSLocationWhenInUseUsageDescription: "Wi-Fi AP の SSID/BSSID を取得するために位置情報へのアクセスが必要です。"
+        NSHumanReadableCopyright: ""
+  MacWifiCheckerTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: MacWifiCheckerTests
+        createIntermediateGroups: true
+    settings:
+      base:
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+    dependencies:
+      - target: MacWifiChecker
