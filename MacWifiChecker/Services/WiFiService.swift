@@ -26,6 +26,7 @@ final class WiFiService: NSObject, ObservableObject {
 
     private let client = CWWiFiClient.shared()
     private var networkCache: [String: CWNetwork] = [:]   // bssid(lower) -> CWNetwork
+    private var isScanning = false
     private let locationManager = CLLocationManager()
 
     override init() {
@@ -44,6 +45,9 @@ final class WiFiService: NSObject, ObservableObject {
     /// ネットワークキャッシュを更新するため、associate の前に必ず呼ぶこと。
     func scan() async throws -> [APInfo] {
         guard let iface = client.interface() else { throw WiFiError.noInterface }
+        guard !isScanning else { return [] }
+        isScanning = true
+        defer { isScanning = false }
         let networks: Set<CWNetwork> = try await withCheckedThrowingContinuation { cont in
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
@@ -97,12 +101,14 @@ final class WiFiService: NSObject, ObservableObject {
     // MARK: - Helpers
 
     private func makeAPInfo(from net: CWNetwork) -> APInfo {
-        let bssid = net.bssid?.lowercased() ?? "unknown"
+        // Callers must guard that bssid is non-nil and non-empty before calling this.
+        let bssid = net.bssid!.lowercased()
         let band: String
         switch net.wlanChannel?.channelBand {
         case .band2GHz: band = "2.4GHz"
         case .band5GHz: band = "5GHz"
-        default:        band = "6GHz"
+        case .band6GHz: band = "6GHz"
+        default:        band = "Unknown"
         }
         return APInfo(id: bssid, ssid: net.ssid ?? "", bssid: bssid, band: band, rssi: net.rssiValue)
     }
