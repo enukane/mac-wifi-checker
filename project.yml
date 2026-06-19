@@ -17,10 +17,9 @@ targets:
         MACOSX_DEPLOYMENT_TARGET: "14.0"
         SWIFT_VERSION: "5.9"
         CODE_SIGN_ENTITLEMENTS: MacWifiChecker/MacWifiChecker.entitlements
+        # NO for local dev: ENABLE_HARDENED_RUNTIME: YES requires Developer ID cert (not ad-hoc)
         ENABLE_HARDENED_RUNTIME: NO
         CODE_SIGN_IDENTITY: "-"
-        CODE_SIGNING_REQUIRED: NO
-        CODE_SIGNING_ALLOWED: NO
     info:
       path: MacWifiChecker/Info.plist
       properties:
