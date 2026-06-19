@@ -4,8 +4,8 @@ import XCTest
 final class ResultExporterTests: XCTestCase {
     var sut: ResultExporter!
 
-    override func setUp() {
-        super.setUp()
+    override func setUpWithError() throws {
+        try super.setUpWithError()
         sut = ResultExporter()
     }
 
@@ -46,13 +46,19 @@ final class ResultExporterTests: XCTestCase {
     }
 
     func test_exportCSV_ssidWithComma_escapedCorrectly() throws {
-        var result = makeResult(bssid: "aa:bb:cc:dd:ee:03")
-        result = TestResult(bssid: "aa:bb:cc:dd:ee:03", ssid: "net,work")
+        var result = TestResult(bssid: "aa:bb:cc:dd:ee:03", ssid: "net,work")
         result.assoc = .pass()
 
         let data = try sut.export([result], format: .csv)
         let text = String(data: data, encoding: .utf8)!
         XCTAssertTrue(text.contains("\"net,work\""))
+    }
+
+    func test_exportCSV_ssidWithQuote_escapedCorrectly() throws {
+        let result = TestResult(bssid: "aa:bb:cc:dd:ee:04", ssid: "net\"work")
+        let data = try sut.export([result], format: .csv)
+        let text = String(data: data, encoding: .utf8)!
+        XCTAssertTrue(text.contains("\"net\"\"work\""))
     }
 
     // MARK: - JSON

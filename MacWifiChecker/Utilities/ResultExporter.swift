@@ -18,15 +18,15 @@ final class ResultExporter {
         for r in results {
             let ts = r.startedAt.map { fmt.string(from: $0) } ?? ""
             let row = [ts, esc(r.ssid), r.bssid,
-                       csv(r.assoc), csv(r.v4Addr), csv(r.v4GW),  csv(r.v4Net),
-                       csv(r.v4MTU), csv(r.v4DNS),  csv(r.v6Addr), csv(r.v6GW),
-                       csv(r.v6Net), csv(r.v6MTU),  csv(r.v6DNS)].joined(separator: ",")
+                       statusString(r.assoc), statusString(r.v4Addr), statusString(r.v4GW),  statusString(r.v4Net),
+                       statusString(r.v4MTU), statusString(r.v4DNS),  statusString(r.v6Addr), statusString(r.v6GW),
+                       statusString(r.v6Net), statusString(r.v6MTU),  statusString(r.v6DNS)].joined(separator: ",")
             lines.append(row)
         }
-        return lines.joined(separator: "\n").data(using: .utf8)!
+        return Data(lines.joined(separator: "\n").utf8)
     }
 
-    private func csv(_ s: TestItemStatus) -> String {
+    private func statusString(_ s: TestItemStatus) -> String {
         switch s {
         case .pending:          return "pending"
         case .running:          return "running"
@@ -38,7 +38,7 @@ final class ResultExporter {
     }
 
     private func esc(_ s: String) -> String {
-        guard s.contains(",") || s.contains("\"") || s.contains("\n") else { return s }
+        guard s.contains(",") || s.contains("\"") || s.contains("\n") || s.contains("\r") else { return s }
         return "\"\(s.replacingOccurrences(of: "\"", with: "\"\""))\""
     }
 
@@ -51,17 +51,17 @@ final class ResultExporter {
                 "ssid":     r.ssid,
                 "bssid":    r.bssid,
                 "tested_at": r.startedAt.map { fmt.string(from: $0) } ?? "",
-                "assoc":    csv(r.assoc),
-                "v4_addr":  csv(r.v4Addr),
-                "v4_gw":    csv(r.v4GW),
-                "v4_net":   csv(r.v4Net),
-                "v4_mtu":   csv(r.v4MTU),
-                "v4_dns":   csv(r.v4DNS),
-                "v6_addr":  csv(r.v6Addr),
-                "v6_gw":    csv(r.v6GW),
-                "v6_net":   csv(r.v6Net),
-                "v6_mtu":   csv(r.v6MTU),
-                "v6_dns":   csv(r.v6DNS),
+                "assoc":    statusString(r.assoc),
+                "v4_addr":  statusString(r.v4Addr),
+                "v4_gw":    statusString(r.v4GW),
+                "v4_net":   statusString(r.v4Net),
+                "v4_mtu":   statusString(r.v4MTU),
+                "v4_dns":   statusString(r.v4DNS),
+                "v6_addr":  statusString(r.v6Addr),
+                "v6_gw":    statusString(r.v6GW),
+                "v6_net":   statusString(r.v6Net),
+                "v6_mtu":   statusString(r.v6MTU),
+                "v6_dns":   statusString(r.v6DNS),
             ]
             if let a = r.ipv4Address  { d["v4_addr_value"] = a }
             if let g = r.ipv4Gateway  { d["v4_gateway"] = g }
