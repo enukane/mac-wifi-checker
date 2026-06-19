@@ -1,6 +1,6 @@
 import Foundation
 
-struct TestResult: Identifiable {
+struct TestResult: Identifiable, Equatable {
     let id: String          // == bssid
     let bssid: String
     let ssid: String
