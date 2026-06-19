@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0098BB227ED09771351C779B /* ConfigServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF66FA1F5D6B486689EEC8 /* ConfigServiceTests.swift */; };
+		21EED156DF18667BE81FADCA /* APInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE2127CF1213963557465E9 /* APInfo.swift */; };
 		248ABC587709D05C4DCC6AD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5491D52F120BE34DA256107E /* Assets.xcassets */; };
+		59723CD7B83BD4956DBBC09A /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0311B41B9298B44C8179EB62 /* TestResult.swift */; };
+		98D4C23E2EE9006D0EFA19E5 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F695450D6772A5E0AC17A36D /* AppConfig.swift */; };
+		B2CE2D98101283D184B665B4 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BB95940EE6840031300F81 /* ConfigService.swift */; };
+		C4E888625E7BF06527F7945B /* TestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D1B48D181C141D2063FC5 /* TestStatus.swift */; };
 		ED89B3E17DEB8E77AFE901A5 /* MacWifiCheckerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC3AE72F1974BFA087E8875 /* MacWifiCheckerApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -22,22 +28,47 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0311B41B9298B44C8179EB62 /* TestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResult.swift; sourceTree = "<group>"; };
+		1BFF66FA1F5D6B486689EEC8 /* ConfigServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigServiceTests.swift; sourceTree = "<group>"; };
 		275E393B674FAB78301F023C /* MacWifiChecker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacWifiChecker.entitlements; sourceTree = "<group>"; };
+		472D1B48D181C141D2063FC5 /* TestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStatus.swift; sourceTree = "<group>"; };
 		5491D52F120BE34DA256107E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5DE2127CF1213963557465E9 /* APInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APInfo.swift; sourceTree = "<group>"; };
 		73905C623572F1E7AF9EBF20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		78BB95940EE6840031300F81 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		7BC3AE72F1974BFA087E8875 /* MacWifiCheckerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacWifiCheckerApp.swift; sourceTree = "<group>"; };
 		B4906A18362FDA9167374C14 /* MacWifiCheckerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacWifiCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3583FF9C62C26014B39E3AF /* MacWifiChecker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacWifiChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F695450D6772A5E0AC17A36D /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		F7F54107E3DCF8E795E0E499 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		1DF9A714BA35F0936FA09ADC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5DE2127CF1213963557465E9 /* APInfo.swift */,
+				F695450D6772A5E0AC17A36D /* AppConfig.swift */,
+				0311B41B9298B44C8179EB62 /* TestResult.swift */,
+				472D1B48D181C141D2063FC5 /* TestStatus.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		4AA96357D6C3ACE4F1E6BAD6 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				7BC3AE72F1974BFA087E8875 /* MacWifiCheckerApp.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		5B2341B7F62DCF817C951E61 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				78BB95940EE6840031300F81 /* ConfigService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		99BBFA0E5E07ED9D5AF338CD = {
@@ -65,6 +96,8 @@
 				73905C623572F1E7AF9EBF20 /* Info.plist */,
 				275E393B674FAB78301F023C /* MacWifiChecker.entitlements */,
 				4AA96357D6C3ACE4F1E6BAD6 /* App */,
+				1DF9A714BA35F0936FA09ADC /* Models */,
+				5B2341B7F62DCF817C951E61 /* Services */,
 			);
 			path = MacWifiChecker;
 			sourceTree = "<group>";
@@ -73,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				F7F54107E3DCF8E795E0E499 /* .gitkeep */,
+				1BFF66FA1F5D6B486689EEC8 /* ConfigServiceTests.swift */,
 			);
 			path = MacWifiCheckerTests;
 			sourceTree = "<group>";
@@ -163,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0098BB227ED09771351C779B /* ConfigServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +205,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21EED156DF18667BE81FADCA /* APInfo.swift in Sources */,
+				98D4C23E2EE9006D0EFA19E5 /* AppConfig.swift in Sources */,
+				B2CE2D98101283D184B665B4 /* ConfigService.swift in Sources */,
 				ED89B3E17DEB8E77AFE901A5 /* MacWifiCheckerApp.swift in Sources */,
+				59723CD7B83BD4956DBBC09A /* TestResult.swift in Sources */,
+				C4E888625E7BF06527F7945B /* TestStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +330,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -370,6 +411,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

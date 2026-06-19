@@ -40,5 +40,6 @@ targets:
     settings:
       base:
         MACOSX_DEPLOYMENT_TARGET: "14.0"
+        GENERATE_INFOPLIST_FILE: YES
     dependencies:
       - target: MacWifiChecker
