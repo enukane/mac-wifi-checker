@@ -20,6 +20,10 @@ targets:
         # NO for local dev: ENABLE_HARDENED_RUNTIME: YES requires Developer ID cert (not ad-hoc)
         ENABLE_HARDENED_RUNTIME: NO
         CODE_SIGN_IDENTITY: "-"
+        # Required for local builds: wifi-info entitlement triggers provisioning profile requirement
+        # Remove these when signing with Developer ID for distribution
+        CODE_SIGNING_REQUIRED: NO
+        CODE_SIGNING_ALLOWED: NO
     info:
       path: MacWifiChecker/Info.plist
       properties:
