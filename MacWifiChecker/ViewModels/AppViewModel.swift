@@ -68,6 +68,11 @@ final class AppViewModel {
     func selectAll()  { for i in aps.indices { aps[i].isSelected = true } }
     func clearAll()   { for i in aps.indices { aps[i].isSelected = false } }
 
+    func setPSKOverride(for bssid: String, psk: String?) {
+        guard let i = aps.firstIndex(where: { $0.bssid == bssid }) else { return }
+        aps[i].pskOverride = psk
+    }
+
     // MARK: - Config Load / Save
 
     func loadConfig(from url: URL) {

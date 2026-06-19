@@ -115,8 +115,7 @@ private struct APRowView: View {
             TextField("global を使用", text: Binding(
                 get: { ap.pskOverride ?? "" },
                 set: { newVal in
-                    guard let i = vm.aps.firstIndex(where: { $0.bssid == ap.bssid }) else { return }
-                    vm.aps[i].pskOverride = newVal.isEmpty ? nil : newVal
+                    vm.setPSKOverride(for: ap.bssid, psk: newVal.isEmpty ? nil : newVal)
                 }
             ))
             .textFieldStyle(.roundedBorder)
