@@ -179,7 +179,7 @@ final class AppViewModel {
         // v4 GW
         testStatus = .running(bssid: ap.bssid, step: "IPv4 GW ping")
         result.v4GW = .running; results[ap.bssid] = result
-        await networkTester.testV4GW(result: &result, gateway: info.gateway)
+        await networkTester.testV4GW(result: &result, gateway: info.gateway, sourceAddress: info.address)
         results[ap.bssid] = result
         guard case .pass = result.v4GW else {
             result.v4Net = .skip; result.v4MTU = .skip; result.v4DNS = .skip
@@ -189,13 +189,13 @@ final class AppViewModel {
         // v4 Net
         testStatus = .running(bssid: ap.bssid, step: "IPv4 Internet ping")
         result.v4Net = .running; results[ap.bssid] = result
-        await networkTester.testV4Net(result: &result, target: config.ipv4PingTarget)
+        await networkTester.testV4Net(result: &result, target: config.ipv4PingTarget, sourceAddress: info.address)
         results[ap.bssid] = result
 
         // v4 MTU（GW が届けば実施）
         testStatus = .running(bssid: ap.bssid, step: "IPv4 MTU")
         result.v4MTU = .running; results[ap.bssid] = result
-        await networkTester.testV4MTU(result: &result, gateway: info.gateway)
+        await networkTester.testV4MTU(result: &result, gateway: info.gateway, sourceAddress: info.address)
         results[ap.bssid] = result
 
         // v4 DNS
@@ -239,7 +239,7 @@ final class AppViewModel {
         // v6 MTU
         testStatus = .running(bssid: ap.bssid, step: "IPv6 MTU")
         result.v6MTU = .running; results[ap.bssid] = result
-        await networkTester.testV6MTU(result: &result, gateway: info.gateway)
+        await networkTester.testV6MTU(result: &result)
         results[ap.bssid] = result
 
         // v6 DNS

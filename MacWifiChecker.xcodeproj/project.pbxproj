@@ -10,10 +10,19 @@
 		0098BB227ED09771351C779B /* ConfigServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF66FA1F5D6B486689EEC8 /* ConfigServiceTests.swift */; };
 		21EED156DF18667BE81FADCA /* APInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE2127CF1213963557465E9 /* APInfo.swift */; };
 		248ABC587709D05C4DCC6AD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5491D52F120BE34DA256107E /* Assets.xcassets */; };
+		41F0E88C9D8267E80C1924D4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012D64B21D3AA548FCAA5182 /* ContentView.swift */; };
 		59723CD7B83BD4956DBBC09A /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0311B41B9298B44C8179EB62 /* TestResult.swift */; };
+		6AFC2C228E7044B7AA6D4558 /* ResultExporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6524C53B603E6DF7EB0E08 /* ResultExporterTests.swift */; };
+		6C5D4530A3472076DE6B9352 /* NetworkTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB61E25CE54E606A571B876 /* NetworkTestService.swift */; };
+		7B7F91B4E69906C18DF53E0B /* WiFiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EF33AED5AC2D27400B0735 /* WiFiService.swift */; };
+		897079D2885FE33600555B8B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0550FA286DF420FA0ADCA3 /* AppViewModel.swift */; };
+		8A5208BF4744AE1DE377C712 /* APListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D5D7C596935E21A0919680 /* APListView.swift */; };
 		98D4C23E2EE9006D0EFA19E5 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F695450D6772A5E0AC17A36D /* AppConfig.swift */; };
+		AF94D02186CB23E69313BA2C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0186B8822977CE1D023AF81 /* SettingsView.swift */; };
 		B2CE2D98101283D184B665B4 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BB95940EE6840031300F81 /* ConfigService.swift */; };
+		B5C47C6225D643BA48141B42 /* ResultExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9AD522C44A23BBA4CC57EE /* ResultExporter.swift */; };
 		C4E888625E7BF06527F7945B /* TestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D1B48D181C141D2063FC5 /* TestStatus.swift */; };
+		E25546DCC643C9A4D28670BA /* ResultMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28A0EC3DB66D032EF90ABBE /* ResultMatrixView.swift */; };
 		ED89B3E17DEB8E77AFE901A5 /* MacWifiCheckerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC3AE72F1974BFA087E8875 /* MacWifiCheckerApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,22 +37,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		012D64B21D3AA548FCAA5182 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0311B41B9298B44C8179EB62 /* TestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResult.swift; sourceTree = "<group>"; };
 		1BFF66FA1F5D6B486689EEC8 /* ConfigServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigServiceTests.swift; sourceTree = "<group>"; };
 		275E393B674FAB78301F023C /* MacWifiChecker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacWifiChecker.entitlements; sourceTree = "<group>"; };
+		38EF33AED5AC2D27400B0735 /* WiFiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiService.swift; sourceTree = "<group>"; };
 		472D1B48D181C141D2063FC5 /* TestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStatus.swift; sourceTree = "<group>"; };
 		5491D52F120BE34DA256107E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5D6524C53B603E6DF7EB0E08 /* ResultExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultExporterTests.swift; sourceTree = "<group>"; };
 		5DE2127CF1213963557465E9 /* APInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APInfo.swift; sourceTree = "<group>"; };
+		6C9AD522C44A23BBA4CC57EE /* ResultExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultExporter.swift; sourceTree = "<group>"; };
 		73905C623572F1E7AF9EBF20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		78BB95940EE6840031300F81 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		7BC3AE72F1974BFA087E8875 /* MacWifiCheckerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacWifiCheckerApp.swift; sourceTree = "<group>"; };
+		9B0550FA286DF420FA0ADCA3 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		B3D5D7C596935E21A0919680 /* APListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APListView.swift; sourceTree = "<group>"; };
 		B4906A18362FDA9167374C14 /* MacWifiCheckerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacWifiCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCB61E25CE54E606A571B876 /* NetworkTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTestService.swift; sourceTree = "<group>"; };
+		C28A0EC3DB66D032EF90ABBE /* ResultMatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultMatrixView.swift; sourceTree = "<group>"; };
 		D3583FF9C62C26014B39E3AF /* MacWifiChecker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacWifiChecker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0186B8822977CE1D023AF81 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F695450D6772A5E0AC17A36D /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		F7F54107E3DCF8E795E0E499 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		155A63BA0AFE7EA761BC21D5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				6C9AD522C44A23BBA4CC57EE /* ResultExporter.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		1DF9A714BA35F0936FA09ADC /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,10 +89,23 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		578E9F7C8B15F42CF70E918D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B3D5D7C596935E21A0919680 /* APListView.swift */,
+				012D64B21D3AA548FCAA5182 /* ContentView.swift */,
+				C28A0EC3DB66D032EF90ABBE /* ResultMatrixView.swift */,
+				F0186B8822977CE1D023AF81 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5B2341B7F62DCF817C951E61 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				78BB95940EE6840031300F81 /* ConfigService.swift */,
+				BCB61E25CE54E606A571B876 /* NetworkTestService.swift */,
+				38EF33AED5AC2D27400B0735 /* WiFiService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -89,6 +128,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9FF70D288E85ED80141C7AFE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9B0550FA286DF420FA0ADCA3 /* AppViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		B996D84A32662C42FAD548AE /* MacWifiChecker */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +145,9 @@
 				4AA96357D6C3ACE4F1E6BAD6 /* App */,
 				1DF9A714BA35F0936FA09ADC /* Models */,
 				5B2341B7F62DCF817C951E61 /* Services */,
+				155A63BA0AFE7EA761BC21D5 /* Utilities */,
+				9FF70D288E85ED80141C7AFE /* ViewModels */,
+				578E9F7C8B15F42CF70E918D /* Views */,
 			);
 			path = MacWifiChecker;
 			sourceTree = "<group>";
@@ -107,6 +157,7 @@
 			children = (
 				F7F54107E3DCF8E795E0E499 /* .gitkeep */,
 				1BFF66FA1F5D6B486689EEC8 /* ConfigServiceTests.swift */,
+				5D6524C53B603E6DF7EB0E08 /* ResultExporterTests.swift */,
 			);
 			path = MacWifiCheckerTests;
 			sourceTree = "<group>";
@@ -198,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0098BB227ED09771351C779B /* ConfigServiceTests.swift in Sources */,
+				6AFC2C228E7044B7AA6D4558 /* ResultExporterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,11 +258,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				21EED156DF18667BE81FADCA /* APInfo.swift in Sources */,
+				8A5208BF4744AE1DE377C712 /* APListView.swift in Sources */,
 				98D4C23E2EE9006D0EFA19E5 /* AppConfig.swift in Sources */,
+				897079D2885FE33600555B8B /* AppViewModel.swift in Sources */,
 				B2CE2D98101283D184B665B4 /* ConfigService.swift in Sources */,
+				41F0E88C9D8267E80C1924D4 /* ContentView.swift in Sources */,
 				ED89B3E17DEB8E77AFE901A5 /* MacWifiCheckerApp.swift in Sources */,
+				6C5D4530A3472076DE6B9352 /* NetworkTestService.swift in Sources */,
+				B5C47C6225D643BA48141B42 /* ResultExporter.swift in Sources */,
+				E25546DCC643C9A4D28670BA /* ResultMatrixView.swift in Sources */,
+				AF94D02186CB23E69313BA2C /* SettingsView.swift in Sources */,
 				59723CD7B83BD4956DBBC09A /* TestResult.swift in Sources */,
 				C4E888625E7BF06527F7945B /* TestStatus.swift in Sources */,
+				7B7F91B4E69906C18DF53E0B /* WiFiService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

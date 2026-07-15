@@ -11,19 +11,21 @@ struct ContentView: View {
 
             Divider()
 
-            // 上段: AP一覧 + 設定（横分割）
-            HSplitView {
-                APListView()
-                    .frame(minWidth: 400)
-                SettingsView()
+            // 上段/下段を VSplitView で分割 → ウィンドウサイズに追従
+            VSplitView {
+                // 上段: AP一覧 + 設定（横分割）
+                HSplitView {
+                    APListView()
+                        .frame(minWidth: 400)
+                    SettingsView()
+                }
+                .frame(minHeight: 180, idealHeight: 280)
+
+                // 下段: 結果マトリックス
+                ResultMatrixView()
+                    .frame(minHeight: 150)
             }
-            .frame(minHeight: 220, idealHeight: 280)
-
-            Divider()
-
-            // 下段: 結果マトリックス
-            ResultMatrixView()
-                .frame(minHeight: 200)
+            .frame(maxHeight: .infinity)  // VStack 内で VSplitView が縦に伸びるよう指示
         }
         .task {
             vm.requestLocationPermission()    // ← 位置情報ダイアログ

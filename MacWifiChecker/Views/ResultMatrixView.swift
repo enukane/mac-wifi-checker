@@ -32,8 +32,11 @@ struct ResultMatrixView: View {
 
             Divider()
 
-            // マトリックス本体（縦+横スクロール）
-            ScrollView([.horizontal, .vertical]) {
+            // マトリックス本体（縦スクロールのみ）
+            // ScrollView([.horizontal, .vertical]) はコンテンツがビューポートより小さいとき
+            // 中央揃えする仕様のため、縦のみに変更。テーブル幅(831px) < 最小ウィンドウ幅(900px)
+            // なので横スクロールは不要。
+            ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 0) {
                     // ヘッダー行
                     HStack(spacing: 0) {
@@ -59,6 +62,7 @@ struct ResultMatrixView: View {
                     }
                 }
             }
+            .frame(maxHeight: .infinity)
         }
     }
 

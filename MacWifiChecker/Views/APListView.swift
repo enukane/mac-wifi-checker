@@ -22,14 +22,18 @@ struct APListView: View {
             Divider()
 
             // AP テーブルヘッダー
+            // maxWidth: .infinity で行の TextField と同じ幅になるようにする
             HStack(spacing: 0) {
                 Text("").frame(width: 24)
                 Text("SSID").frame(width: 140, alignment: .leading).font(.caption).bold().foregroundStyle(.secondary)
                 Text("BSSID").frame(width: 155, alignment: .leading).font(.caption).bold().foregroundStyle(.secondary)
                 Text("Band").frame(width: 55, alignment: .leading).font(.caption).bold().foregroundStyle(.secondary)
                 Text("RSSI").frame(width: 65, alignment: .trailing).font(.caption).bold().foregroundStyle(.secondary)
-                Text("PSK Override").frame(minWidth: 80, alignment: .leading).font(.caption).bold().foregroundStyle(.secondary)
+                Text("PSK Override")
+                    .frame(minWidth: 100, maxWidth: .infinity, alignment: .leading)
+                    .font(.caption).bold().foregroundStyle(.secondary)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .background(Color(nsColor: .windowBackgroundColor))
@@ -40,7 +44,7 @@ struct APListView: View {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
                     ForEach(vm.filteredAPs) { ap in
-                        APRowView(ap: ap)
+                        APRowView(bssid: ap.bssid)
                         Divider()
                     }
                 }
@@ -64,9 +68,19 @@ struct APListView: View {
 
 private struct APRowView: View {
     @Environment(AppViewModel.self) private var vm
-    let ap: APInfo
+    let bssid: String
 
     var body: some View {
+        // vm.aps を直接読むことで @Observable のトラッキングを確立し、
+        // isSelected の変化で確実に再レンダリングされるようにする
+        guard let ap = vm.aps.first(where: { $0.bssid == bssid }) else {
+            return AnyView(EmptyView())
+        }
+        return AnyView(rowContent(ap: ap))
+    }
+
+    @ViewBuilder
+    private func rowContent(ap: APInfo) -> some View {
         HStack(spacing: 0) {
             // チェックボックス
             Toggle("", isOn: Binding(
@@ -111,7 +125,7 @@ private struct APRowView: View {
                 .foregroundStyle(rssiColor(ap.rssi))
                 .frame(width: 65, alignment: .trailing)
 
-            // PSK Override
+            // PSK Override（padding(.horizontal, 4) を除去してヘッダーと列位置を一致させる）
             TextField("global を使用", text: Binding(
                 get: { ap.pskOverride ?? "" },
                 set: { newVal in
@@ -121,7 +135,6 @@ private struct APRowView: View {
             .textFieldStyle(.roundedBorder)
             .font(.system(size: 11))
             .frame(minWidth: 100)
-            .padding(.horizontal, 4)
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)

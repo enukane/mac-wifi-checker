@@ -16,6 +16,27 @@ final class NetworkTestService {
 
     /// コマンドを実行して標準出力を返す。終了コード != 0 は ShellError.failed を throw。
     nonisolated func run(_ args: [String]) async throws -> String {
+        try await runWithTimeout(seconds: .infinity, args)
+    }
+
+    /// タイムアウト付きでコマンドを実行する。
+    /// timeout(1) コマンドに依存せず Swift の構造化並行処理でタイムアウトを実現する。
+    /// macOS アプリの PATH には /opt/homebrew/bin が含まれないため外部 timeout は使用不可。
+    nonisolated func runWithTimeout(seconds: Double, _ args: [String]) async throws -> String {
+        try await withThrowingTaskGroup(of: String.self) { group in
+            group.addTask { try await self._run(args) }
+            if seconds.isFinite {
+                group.addTask {
+                    try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+                    throw ShellError.cancelled
+                }
+            }
+            defer { group.cancelAll() }
+            return try await group.next()!
+        }
+    }
+
+    nonisolated private func _run(_ args: [String]) async throws -> String {
         let proc = Process()
         proc.executableURL = URL(fileURLWithPath: "/usr/bin/env")
         proc.arguments = args
@@ -38,7 +59,8 @@ final class NetworkTestService {
                 do { try proc.run() } catch { cont.resume(throwing: error) }
             }
         } onCancel: {
-            proc.terminate()
+            // proc.isRunning が false の場合（未起動 or 既終了）は terminate() を呼ばない
+            if proc.isRunning { proc.terminate() }
         }
     }
 
@@ -138,9 +160,10 @@ final class NetworkTestService {
     }
 
     /// テスト 3: IPv4 デフォルトゲートウェイへの ping
-    nonisolated func testV4GW(result: inout TestResult, gateway: String) async {
+    /// macOS ping の -I はマルチキャスト専用。ユニキャストの送信元バインドは -S <アドレス> を使う。
+    nonisolated func testV4GW(result: inout TestResult, gateway: String, sourceAddress: String) async {
         do {
-            _ = try await run(["ping", "-c1", "-W3000", gateway])
+            _ = try await run(["ping", "-c1", "-W3000", "-S", sourceAddress, gateway])
             result.v4GW = .pass()
         } catch {
             result.v4GW = .fail(detail: "ping失敗: \(gateway)")
@@ -148,9 +171,9 @@ final class NetworkTestService {
     }
 
     /// テスト 4: IPv4 インターネット疎通
-    nonisolated func testV4Net(result: inout TestResult, target: String) async {
+    nonisolated func testV4Net(result: inout TestResult, target: String, sourceAddress: String) async {
         do {
-            _ = try await run(["ping", "-c1", "-W5000", target])
+            _ = try await run(["ping", "-c1", "-W5000", "-S", sourceAddress, target])
             result.v4Net = .pass()
         } catch {
             result.v4Net = .fail(detail: "ping失敗: \(target)")
@@ -158,8 +181,8 @@ final class NetworkTestService {
     }
 
     /// テスト 5: IPv4 MTU（DF ビットを立てて二分探索）
-    nonisolated func testV4MTU(result: inout TestResult, gateway: String) async {
-        let mtu = await binarySearchMTU(target: gateway, lo: 100, hi: 1472, family: .v4)
+    nonisolated func testV4MTU(result: inout TestResult, gateway: String, sourceAddress: String) async {
+        let mtu = await binarySearchMTU(target: gateway, sourceAddress: sourceAddress, lo: 100, hi: 1472)
         if mtu > 0 {
             result.v4MTU = .pass(detail: "\(mtu + 28)")  // IP(20) + ICMP(8) + payload = MTU
         } else {
@@ -192,9 +215,11 @@ final class NetworkTestService {
     }
 
     /// テスト 8: IPv6 ゲートウェイへの ping6
+    /// macOS ping6 は -W を数値タイムアウトとして受け付けない。
+    /// timeout コマンドは macOS 非標準のため runWithTimeout で Swift レベルのタイムアウトを実現。
     nonisolated func testV6GW(result: inout TestResult, gateway: String) async {
         do {
-            _ = try await run(["ping6", "-c1", gateway])
+            _ = try await runWithTimeout(seconds: 5, ["ping6", "-c1", "-I", wifiInterface, gateway])
             result.v6GW = .pass()
         } catch {
             result.v6GW = .fail(detail: "ping6失敗: \(gateway)")
@@ -204,20 +229,30 @@ final class NetworkTestService {
     /// テスト 9: IPv6 インターネット疎通
     nonisolated func testV6Net(result: inout TestResult, target: String) async {
         do {
-            _ = try await run(["ping6", "-c1", target])
+            _ = try await runWithTimeout(seconds: 5, ["ping6", "-c1", "-I", wifiInterface, target])
             result.v6Net = .pass()
         } catch {
             result.v6Net = .fail(detail: "ping6失敗: \(target)")
         }
     }
 
-    /// テスト 10: IPv6 MTU（二分探索）
-    nonisolated func testV6MTU(result: inout TestResult, gateway: String) async {
-        let payload = await binarySearchMTU(target: gateway, lo: 1232, hi: 1452, family: .v6)
-        if payload > 0 {
-            result.v6MTU = .pass(detail: "\(payload + 48)")  // IPv6(40) + ICMPv6(8) + payload
-        } else {
-            result.v6MTU = .fail(detail: "MTU検出失敗")
+    /// テスト 10: IPv6 リンク MTU
+    /// v6GW / v6Net テストで既にトラフィックが発生済み（PMTUD が働く前提）のため、
+    /// その後に ifconfig でリンク MTU を読む。L2TP 等のトンネルがある場合は
+    /// ルーターが RA MTU オプションでインターフェース MTU を通知するためここに反映される。
+    nonisolated func testV6MTU(result: inout TestResult) async {
+        do {
+            let output = try await run(["ifconfig", wifiInterface])
+            let tokens = output.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
+            if let idx = tokens.firstIndex(of: "mtu"),
+               idx + 1 < tokens.count,
+               let mtu = Int(tokens[idx + 1]) {
+                result.v6MTU = .pass(detail: "\(mtu)")
+            } else {
+                result.v6MTU = .fail(detail: "MTU解析失敗")
+            }
+        } catch {
+            result.v6MTU = .fail(detail: "ifconfig失敗")
         }
     }
 
@@ -235,29 +270,22 @@ final class NetworkTestService {
         }
     }
 
-    // MARK: - MTU 二分探索
+    // MARK: - IPv4 MTU 二分探索
 
-    private enum IPFamily { case v4, v6 }
-
-    /// 指定範囲でペイロードサイズを二分探索して、通る最大ペイロードバイト数を返す。
-    private func binarySearchMTU(target: String, lo: Int, hi: Int, family: IPFamily) async -> Int {
+    /// 指定範囲でペイロードサイズを二分探索して、通る最大ペイロードバイト数を返す（IPv4 のみ）。
+    private func binarySearchMTU(target: String, sourceAddress: String, lo: Int, hi: Int) async -> Int {
         var lo = lo, hi = hi, best = 0
         while lo <= hi {
             let mid = (lo + hi) / 2
-            let ok = await pingOnce(target: target, payloadSize: mid, family: family)
+            let ok = await pingOnce(target: target, sourceAddress: sourceAddress, payloadSize: mid)
             if ok { best = mid; lo = mid + 1 } else { hi = mid - 1 }
         }
         return best
     }
 
-    private func pingOnce(target: String, payloadSize: Int, family: IPFamily) async -> Bool {
+    private func pingOnce(target: String, sourceAddress: String, payloadSize: Int) async -> Bool {
         do {
-            switch family {
-            case .v4:
-                _ = try await run(["ping", "-c1", "-W2000", "-D", "-s\(payloadSize)", target])
-            case .v6:
-                _ = try await run(["ping6", "-c1", "-m", "-s\(payloadSize)", target])
-            }
+            _ = try await run(["ping", "-c1", "-W2000", "-D", "-S", sourceAddress, "-s\(payloadSize)", target])
             return true
         } catch { return false }
     }

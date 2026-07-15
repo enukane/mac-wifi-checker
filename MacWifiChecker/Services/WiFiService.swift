@@ -87,7 +87,14 @@ final class WiFiService: NSObject, ObservableObject {
                 }
             }
         }
-        // 接続後の BSSID を検証
+        // 接続後の BSSID が OS に反映されるまでポーリング（最大 10 秒、0.5 秒間隔）
+        // AP 切り替え時は associate() 完了後も iface.bssid() がしばらく旧値を返すことがある
+        let deadline = Date().addingTimeInterval(10.0)
+        while Date() < deadline {
+            let actual = iface.bssid()?.lowercased()
+            if actual == key { return }
+            try await Task.sleep(nanoseconds: 500_000_000)  // 0.5s（Task キャンセルで即 throw）
+        }
         let actual = iface.bssid()?.lowercased()
         guard actual == key else {
             throw WiFiError.bssidMismatch(expected: bssid, actual: actual)
